@@ -15,6 +15,7 @@ namespace Model
             this.cor = cor;
             qtdMovimento = 0;
         }      
+      
        
     }
 }
