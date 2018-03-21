@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tabuleiro;
+using Model;
 
 namespace Xadrez_Console
 {
@@ -11,8 +11,8 @@ namespace Xadrez_Console
     {
         static void Main(string[] args)
         {
-            var posicao = new Posicao(3, 4);
-            Console.WriteLine(posicao);
+            var tab = new Tabuleiro(8, 8);
+            Tela.imprimirTabuleiro(tab);
             Console.ReadLine();
         }
     }

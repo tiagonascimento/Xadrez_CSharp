@@ -1,5 +1,5 @@
 ﻿
-namespace Tabuleiro
+namespace Model
 {
    public class Peca
     {
@@ -14,7 +14,7 @@ namespace Tabuleiro
             this.tabuleiro = tabuleiro;
             this.cor = cor;
             qtdMovimento = 0;
-        }
+        }      
        
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace Tabuleiro
+namespace Model
 {
     public class Posicao
     {
