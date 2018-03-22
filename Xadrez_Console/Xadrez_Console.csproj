@@ -43,8 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Rei.cs" />
-    <Compile Include="Model\Torre.cs" />
+    <Compile Include="Domain\PartidaDeXadrez.cs" />
+    <Compile Include="Model\Pecas\Bispo.cs" />
+    <Compile Include="Model\Pecas\Cavalo.cs" />
+    <Compile Include="Model\Pecas\Piao.cs" />
+    <Compile Include="Model\Pecas\Rei.cs" />
+    <Compile Include="Model\Pecas\Torre.cs" />
+    <Compile Include="Model\Pecas\Rainha.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Cor.cs" />

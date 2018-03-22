@@ -14,8 +14,11 @@ namespace Model
             this.tabuleiro = tabuleiro;
             this.cor = cor;
             qtdMovimento = 0;
-        }      
-      
+        }
+        public void incrementarMovimento()
+        {
+            qtdMovimento++;
+        }
        
     }
 }

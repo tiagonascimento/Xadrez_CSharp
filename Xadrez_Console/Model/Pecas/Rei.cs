@@ -7,7 +7,7 @@ namespace Model
 
         public override string ToString()
         {
-            return "R";
+            return "E";
         }
 
     }

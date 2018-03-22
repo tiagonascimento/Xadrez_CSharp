@@ -1,5 +1,6 @@
 ﻿using System;
 using Model;
+using Domain;
 
 namespace Xadrez_Console
 {
@@ -8,21 +9,27 @@ namespace Xadrez_Console
         static void Main(string[] args)
         {
             try
-            {
-                var tab = new Tabuleiro(8, 8);
-                tab.colocarPeca(new Torre(tab, Cor.branco), new Posicao(0, 0));
-                tab.colocarPeca(new Torre(tab, Cor.branco), new Posicao(0, 7));
-                tab.colocarPeca(new Torre(tab, Cor.preto), new Posicao(7, 7));
-                tab.colocarPeca(new Torre(tab, Cor.preto), new Posicao(7, 0));
-                Tela.imprimirTabuleiro(tab);
-                Console.ReadLine();
+            {               
+                var p = new PartidaDeXadrez();
+                while (!p.terminada)
+                {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(p.tabuleiro);
+                    Console.WriteLine("Origem");
+                    var origem = Tela.lerPosicaoXadez().toPosicao();
+                    Console.WriteLine("destino");
+                    var destino = Tela.lerPosicaoXadez().toPosicao();
+                    p.ExecultaMovimento(origem, destino);                    
+                }
+
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.ReadLine();
             }
-         
+            Console.ReadLine();
         }
     }
 }

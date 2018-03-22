@@ -9,13 +9,11 @@ namespace Model
         public int linhas { get; set; }
         public int colunas { get; set; }
         public Peca[,] pecas { get; private set; }
-
         public Tabuleiro(int linhas, int colunas) {
             this.linhas = linhas;
             this.colunas = colunas;
             pecas = new Peca[linhas, colunas];
         }
-
         public Peca peca(int linha, int coluna)
         {
             return pecas[linha, coluna];
@@ -45,6 +43,16 @@ namespace Model
         {
             validaPosicao(posicao);
             return peca(posicao) != null;
+        }
+        public Peca retirarPeca(Posicao posicao)
+        {
+            if (peca(posicao) == null)
+                return null;
+            var pecaAx = peca(posicao); 
+            pecaAx.posicao = null;
+
+            pecas[posicao.linha, posicao.coluna] = null;
+            return pecaAx;
         }
     }
 }
