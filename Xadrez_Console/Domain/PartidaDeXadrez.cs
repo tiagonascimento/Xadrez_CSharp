@@ -1,5 +1,6 @@
 ﻿using Model;
 using Util;
+using Xadrez_Console.Util;
 
 namespace Domain
 {
@@ -30,6 +31,16 @@ namespace Domain
             ExecultaMovimento(origem, destino);
             _turno++;
             mudarJogaodr();
+
+        }
+        public void validarPosicaoOrigem(Posicao pos)
+        {
+            if (tabuleiro.peca(pos) == null)
+                throw new ExceptionUtil("não Existe peça de origem escollhida");
+            if (_jogadorAtual!= tabuleiro.peca(pos).cor)
+                throw new ExceptionUtil(" a peça escolhida não e sua");
+            if (!tabuleiro.peca(pos).existeMovimentosPossiveis())
+                throw new ExceptionUtil(" não a movimentos disponiveis para a peça escolhida");
 
         }
         private void mudarJogaodr()
