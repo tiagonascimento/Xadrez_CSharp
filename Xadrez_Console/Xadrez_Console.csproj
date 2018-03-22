@@ -52,6 +52,7 @@
     <Compile Include="Model\Posicao.cs" />
     <Compile Include="Model\Tabuleiro.cs" />
     <Compile Include="Tela.cs" />
+    <Compile Include="Util\ConverterPosicao.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
   </ItemGroup>
   <ItemGroup>
