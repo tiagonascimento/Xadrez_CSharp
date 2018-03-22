@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Model
 {
     public class Cavalo : Peca
@@ -6,6 +8,12 @@ namespace Model
         public Cavalo(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
         {
         }
+
+        public override bool[,] movimentosPossiveis()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return "C";

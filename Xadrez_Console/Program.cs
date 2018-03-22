@@ -15,11 +15,23 @@ namespace Xadrez_Console
                 {
                     Console.Clear();
                     Tela.imprimirTabuleiro(p.tabuleiro);
+                    Console.WriteLine("Trurno: " + p._turno);
+                    Console.WriteLine("Aguardando jogada: " + p._jogadorAtual);
+
+
+
+
                     Console.WriteLine("Origem");
                     var origem = Tela.lerPosicaoXadez().toPosicao();
+                    var pe = p.tabuleiro.peca(origem);              
+                    var mov = pe.movimentosPossiveis();
+   
+
+                    Console.Clear();
+                   Tela.imprimirTabuleiro(p.tabuleiro, mov);
                     Console.WriteLine("destino");
                     var destino = Tela.lerPosicaoXadez().toPosicao();
-                    p.ExecultaMovimento(origem, destino);                    
+                    p.realizaJogada(origem, destino);                    
                 }
 
                 

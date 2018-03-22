@@ -1,12 +1,11 @@
 ﻿
-
 using System;
 
 namespace Model
 {
-    public class Rainha : Peca
+    public class Peao : Peca
     {
-        public Rainha(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
+        public Peao(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
         {
         }
 
@@ -17,7 +16,8 @@ namespace Model
 
         public override string ToString()
         {
-            return "R";
+            return "P";
         }
     }
+
 }

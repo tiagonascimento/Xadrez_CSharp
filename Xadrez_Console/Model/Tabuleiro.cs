@@ -21,16 +21,18 @@ namespace Model
         public Peca peca(Posicao posicao)
         {
             return pecas[posicao.linha, posicao.coluna];
+
         }
         public void colocarPeca(Peca peca, Posicao posicao)
         {
             if(existePeca(posicao))
                 throw new ExceptionUtil("Ja existe uma Peça nessa posição");
             pecas[posicao.linha, posicao.coluna] = peca;
+            peca.posicao = posicao;
         }
         public bool posicaoValida(Posicao posicao)
         {
-            if (posicao.linha < 0 || posicao.linha >= linhas || posicao.coluna < 0 || posicao.coluna > colunas)
+            if (posicao.linha < 0 || posicao.linha >= linhas || posicao.coluna < 0 || posicao.coluna >= colunas)
                 return false;
             return true;
         }

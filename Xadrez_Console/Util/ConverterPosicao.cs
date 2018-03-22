@@ -9,8 +9,8 @@ namespace Util
 {
     public class ConverterPosicao
     {
-        public char coluna { get; private set; }
-        public int linha { get; private set; }
+        public char coluna { get;  set; }
+        public int linha { get;  set; }
 
        public ConverterPosicao(char coluna, int linha)
         {
