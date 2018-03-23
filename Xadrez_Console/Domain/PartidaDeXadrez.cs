@@ -72,7 +72,7 @@ namespace Domain
         }
         public void validarPosicaoDestino(Posicao origem, Posicao destino)
         {
-            if (!tabuleiro.peca(origem).podeMoverPara(destino))
+            if (!tabuleiro.peca(origem).movimentoPossivel(destino))
                 throw new ExceptionUtil("Posicao de destino inválida");         
 
         }
