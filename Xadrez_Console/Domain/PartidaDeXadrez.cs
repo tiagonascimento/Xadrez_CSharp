@@ -104,13 +104,10 @@ namespace Domain
         }
         private void colocarPeca()
         {
-
-
+            
             colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
             colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
             colocarNovaPeca('h', 7, new Torre(tabuleiro, Cor.branco));
-
-
             colocarNovaPeca('a', 8, new Rei(tabuleiro, Cor.preto));
             colocarNovaPeca('b', 8, new Torre(tabuleiro, Cor.preto));
          
