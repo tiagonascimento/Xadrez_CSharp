@@ -104,71 +104,44 @@ namespace Domain
         }
         private void colocarPeca()
         {
-            
-            colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
-            colocarNovaPeca('h', 7, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('a', 8, new Rei(tabuleiro, Cor.preto));
-            colocarNovaPeca('b', 8, new Torre(tabuleiro, Cor.preto));
-         
+
+            colocarNovaPeca('a',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('b',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('c',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('d',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('e',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('f',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('g',2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('h',2, new Peao(tabuleiro, Cor.branco));
+
+            colocarNovaPeca('a', 1, new Torre(tabuleiro,  Cor.branco));
+            colocarNovaPeca('b', 1, new Cavalo(tabuleiro, Cor.branco));
+            colocarNovaPeca('c', 1, new Bispo(tabuleiro,  Cor.branco));
+            colocarNovaPeca('d', 1, new Rainha(tabuleiro, Cor.branco));
+            colocarNovaPeca('e', 1, new Rei(tabuleiro,    Cor.branco));
+            colocarNovaPeca('f', 1, new Bispo(tabuleiro,  Cor.branco));
+            colocarNovaPeca('g', 1, new Cavalo(tabuleiro, Cor.branco));
+            colocarNovaPeca('h', 1, new Torre(tabuleiro,  Cor.branco));
 
 
+            colocarNovaPeca('a', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('b', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('c', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('d', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('e', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('f', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('g', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('h', 7, new Peao(tabuleiro, Cor.preto));
 
-            //colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
-            //colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.branco));
-            //colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.branco));
-            //colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.branco));
-            //colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.branco));
-            //colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
-
-
-            //colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.preto));
-            //colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.preto));
-            //colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.preto));
-            //colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.preto));
-            //colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.preto));
-            //colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.preto));
-
-            //  tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.branco),  new ConverterPosicao('a', 1).toPosicao());    
-            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.branco), new ConverterPosicao('b', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.branco),  new ConverterPosicao('c', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Rainha(tabuleiro, Cor.branco), new ConverterPosicao('d', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.branco),    new ConverterPosicao('e', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.branco),  new ConverterPosicao('f', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.branco), new ConverterPosicao('g', 1).toPosicao());
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.branco),  new ConverterPosicao('h', 1).toPosicao());
-
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('a', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('b', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('c', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('d', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('e', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('f', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('g', 2).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.branco),  new ConverterPosicao('h', 2).toPosicao());
-
-
-
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('a',8).toPosicao());
-            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('b',8).toPosicao());
-            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('c',8).toPosicao());
-            //tabuleiro.colocarPeca(new Rainha(tabuleiro, Cor.preto), new ConverterPosicao('d',8).toPosicao());
-            //tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.preto),    new ConverterPosicao('e',8).toPosicao());
-            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('f',8).toPosicao());
-            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('g',8).toPosicao());
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('h',8).toPosicao());
-
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('a', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('b', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('c', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('d', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('e', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('f', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('g', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('h', 7).toPosicao());
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
-            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 0));
+            colocarNovaPeca('a', 8, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('b', 8, new Cavalo(tabuleiro, Cor.preto));
+            colocarNovaPeca('c', 8, new Bispo(tabuleiro, Cor.preto));
+            colocarNovaPeca('d', 8, new Rainha(tabuleiro, Cor.preto));
+            colocarNovaPeca('e', 8, new Rei(tabuleiro, Cor.preto));
+            colocarNovaPeca('f', 8, new Bispo(tabuleiro, Cor.preto));
+            colocarNovaPeca('g', 8, new Cavalo(tabuleiro, Cor.preto));
+            colocarNovaPeca('h', 8, new Torre(tabuleiro, Cor.preto));
+        
         }
         private Cor adversaria(Cor cor)
         {

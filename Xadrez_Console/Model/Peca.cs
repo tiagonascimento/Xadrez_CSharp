@@ -22,7 +22,7 @@ namespace Model
         {
             qtdMovimento--;
         }
-        protected bool podeMover(Posicao posicao)
+        protected virtual bool podeMover(Posicao posicao)
         {
             var peca = tabuleiro.peca(posicao);
             return peca == null || peca.cor != cor;
