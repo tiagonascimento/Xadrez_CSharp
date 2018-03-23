@@ -15,12 +15,9 @@ namespace Xadrez_Console
                 {
                     try
                     {
-
-                  
+                     
                     Console.Clear();
-                    Tela.imprimirTabuleiro(p.tabuleiro);
-                    Console.WriteLine("Trurno: " + p._turno);
-                    Console.WriteLine("Aguardando jogada: " + p._jogadorAtual);
+                        Tela.imprimirPartida(p);   
 
                     Console.WriteLine("Origem");
                     var origem = Tela.lerPosicaoXadez().toPosicao();
@@ -28,8 +25,10 @@ namespace Xadrez_Console
 
                     var pe = p.tabuleiro.peca(origem).movimentosPossiveis();
                     Console.Clear();
-                    Tela.imprimirTabuleiro(p.tabuleiro, pe);
-                    Console.WriteLine("destino");
+
+                        //  Tela.imprimirTabuleiro(p.tabuleiro, pe);
+                        Tela.imprimirPartida(p, pe);
+                        Console.WriteLine("destino");
                     var destino = Tela.lerPosicaoXadez().toPosicao();
                         p.validarPosicaoDestino(origem, destino);
                     p.realizaJogada(origem, destino);

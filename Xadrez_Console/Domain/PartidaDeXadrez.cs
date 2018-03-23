@@ -1,6 +1,8 @@
 ﻿using Model;
+using System.Collections.Generic;
 using Util;
 using Xadrez_Console.Util;
+using System.Linq;
 
 namespace Domain
 {
@@ -11,8 +13,15 @@ namespace Domain
         public int _turno{ get; private set; }
         public Cor _jogadorAtual { get; private set; }
         public bool terminada { get; private set; }
+        private HashSet<Peca> pecas;
+        private HashSet<Peca> pecasCapturadas;
+
+
+     
         public PartidaDeXadrez()
         {
+            pecas = new HashSet<Peca>();
+            pecasCapturadas = new HashSet<Peca>();
             tabuleiro = new Tabuleiro(8, 8);
             _turno = 1;
             _jogadorAtual = Cor.branco;
@@ -25,6 +34,8 @@ namespace Domain
             peca.incrementarMovimento();
             var pecaCapturada = tabuleiro.retirarPeca(destino);
             tabuleiro.colocarPeca(peca, destino);
+            if (pecaCapturada != null)
+                pecasCapturadas.Add(pecaCapturada);
         }
         public void realizaJogada(Posicao origem,Posicao destino)
         {
@@ -57,13 +68,42 @@ namespace Domain
             else
             _jogadorAtual = Cor.preto;
         }
+        public void colocarNovaPeca(char coluna, int linha, Peca peca)
+        {
+            tabuleiro.colocarPeca(peca, new ConverterPosicao(coluna, linha).toPosicao());
+            pecas.Add(peca);
+
+        }
+        public HashSet<Peca> listPecasJogo(Cor cor)
+        {
+            var p = (HashSet<Peca>)pecas.Where(x => x.cor == cor);
+            p.ExceptWith(listPecasCapturadas(cor));
+            return new HashSet<Peca>(p);
+        }
+        public HashSet<Peca> listPecasCapturadas(Cor cor)
+        {
+            var t  = pecasCapturadas.Where(x => x.cor == cor);
+            return new HashSet<Peca>(t);
+            //return (HashSet<Peca>) t;
+        }
         private void colocarPeca()
         {
-            tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.branco),  new ConverterPosicao('a', 1).toPosicao());
-       
+            colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
+            colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.branco));
+            colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.branco));
+            colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.branco));
+            colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.branco));
+            colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
 
 
+            colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.preto));
+            colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.preto));
 
+            //  tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.branco),  new ConverterPosicao('a', 1).toPosicao());    
             //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.branco), new ConverterPosicao('b', 1).toPosicao());
             //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.branco),  new ConverterPosicao('c', 1).toPosicao());
             //tabuleiro.colocarPeca(new Rainha(tabuleiro, Cor.branco), new ConverterPosicao('d', 1).toPosicao());
@@ -83,23 +123,23 @@ namespace Domain
 
 
 
-            tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('a',8).toPosicao());
-            tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('b',8).toPosicao());
-            tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('c',8).toPosicao());
-            tabuleiro.colocarPeca(new Rainha(tabuleiro, Cor.preto), new ConverterPosicao('d',8).toPosicao());
-            tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.preto),    new ConverterPosicao('e',8).toPosicao());
-            tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('f',8).toPosicao());
-            tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('g',8).toPosicao());
-            tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('h',8).toPosicao());
+            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('a',8).toPosicao());
+            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('b',8).toPosicao());
+            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('c',8).toPosicao());
+            //tabuleiro.colocarPeca(new Rainha(tabuleiro, Cor.preto), new ConverterPosicao('d',8).toPosicao());
+            //tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.preto),    new ConverterPosicao('e',8).toPosicao());
+            //tabuleiro.colocarPeca(new Bispo(tabuleiro, Cor.preto),  new ConverterPosicao('f',8).toPosicao());
+            //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.preto), new ConverterPosicao('g',8).toPosicao());
+            //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto),  new ConverterPosicao('h',8).toPosicao());
 
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('a', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('b', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('c', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('d', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('e', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('f', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('g', 7).toPosicao());
-            tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('h', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('a', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('b', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('c', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('d', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('e', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('f', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('g', 7).toPosicao());
+            //tabuleiro.colocarPeca(new Peao(tabuleiro, Cor.preto), new ConverterPosicao('h', 7).toPosicao());
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 0));
