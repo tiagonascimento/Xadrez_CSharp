@@ -13,48 +13,60 @@ namespace Model
 
         public override bool[,] movimentosPossiveis()
         {
-            bool[,] matriz = new bool[tabuleiro.linhas, tabuleiro.colunas];
-            var p = new Posicao(0, 0);
+            bool[,] mat = new bool[tabuleiro.linhas, tabuleiro.colunas];
 
-            //ne
-            p.definirValores(posicao.linha - 1, posicao.coluna + 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
+            Posicao pos = new Posicao(0, 0);
+
+            // NO
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
             {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
+                mat[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
                     break;
-                p.definirValores(p.linha - 1, p.coluna);
-            }
-            //se
-            p.definirValores(posicao.linha + 1, posicao.coluna + 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha + 1, posicao.coluna + 1);
-            }              
-            //so
-            p.definirValores(posicao.linha + 1, posicao.coluna - 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha + 1, posicao.coluna - 1);
-            }
-            //no
-            p.definirValores(posicao.linha - 1, posicao.coluna - 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha - 1, posicao.coluna - 1);
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna - 1);
             }
 
+            // NE
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna + 1);
+            }
 
-            return matriz;
+            // SE
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna + 1);
+            }
+
+            // SO
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna - 1);
+            }
+
+
+            return mat;
         }
 
         public override string ToString()

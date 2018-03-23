@@ -14,79 +14,105 @@ namespace Model
         {
             bool[,] matriz = new bool[tabuleiro.linhas, tabuleiro.colunas];
             var p = new Posicao(0, 0);
-            //acima
-            p.definirValores(posicao.linha - 1, posicao.coluna);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
+
+
+            Posicao pos = new Posicao(0, 0);
+
+            // esquerda
+            pos.definirValores(posicao.linha, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
             {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
                     break;
-                p.definirValores(posicao.linha - 1, posicao.coluna);
-            }           
-            //ne
-            p.definirValores(posicao.linha - 1, posicao.coluna + 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha - 1, posicao.coluna + 1);
+                }
+                pos.definirValores(pos.linha, pos.coluna - 1);
             }
-            //direita
-            p.definirValores(posicao.linha, posicao.coluna + 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
+
+            // direita
+            pos.definirValores(posicao.linha, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
             {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
                     break;
-                p.definirValores(posicao.linha, posicao.coluna + 1);
+                }
+                pos.definirValores(pos.linha, pos.coluna + 1);
             }
-            //se
-            p.definirValores(posicao.linha + 1, posicao.coluna + 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
+
+            // acima
+            pos.definirValores(posicao.linha - 1, posicao.coluna);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
             {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
                     break;
-                p.definirValores(posicao.linha + 1, posicao.coluna + 1);
-            }         
-            //baixo
-            p.definirValores(posicao.linha + 1, posicao.coluna);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha + 1, posicao.coluna);
-            }           
-            //so
-            p.definirValores(posicao.linha + 1, posicao.coluna - 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha + 1, posicao.coluna - 1);
-            }          
-            //esquerda
-            p.definirValores(posicao.linha, posicao.coluna - 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha, posicao.coluna - 1);
-            }         
-            //no
-            p.definirValores(posicao.linha - 1, posicao.coluna - 1);
-            while (tabuleiro.posicaoValida(p) && podeMover(p))
-            {
-                matriz[p.linha, p.coluna] = true;
-                if (tabuleiro.peca(p) != null && tabuleiro.peca(p).cor != cor)
-                    break;
-                p.definirValores(posicao.linha - 1, posicao.coluna - 1);
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna);
             }
-          
+
+            // abaixo
+            pos.definirValores(posicao.linha + 1, posicao.coluna);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna);
+            }
+
+            // NO
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna - 1);
+            }
+
+            // NE
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna + 1);
+            }
+
+            // SE
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna + 1);
+            }
+
+            // SO
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos))
+            {
+                matriz[pos.linha, pos.coluna] = true;
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna - 1);
+            }
             return matriz;
         }
 
