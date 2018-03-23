@@ -25,6 +25,7 @@ namespace Domain
             tabuleiro = new Tabuleiro(8, 8);
             _turno = 1;
             _jogadorAtual = Cor.branco;
+            terminada = false;
             colocarPeca();            
         }
         public Peca ExecultaMovimento(Posicao origem, Posicao destino)
@@ -50,10 +51,13 @@ namespace Domain
                 xeque = true;
             else
                 xeque = false;
-
-              
-            _turno++;
-            mudarJogaodr();
+            if (testeXequeMate(adversaria(_jogadorAtual)))
+                terminada = true;
+            else
+            {
+                _turno++;
+                mudarJogaodr();
+            }
 
         }
         public void validarPosicaoOrigem(Posicao pos)
@@ -69,8 +73,7 @@ namespace Domain
         public void validarPosicaoDestino(Posicao origem, Posicao destino)
         {
             if (!tabuleiro.peca(origem).podeMoverPara(destino))
-                throw new ExceptionUtil("Posicao de destino inválida");
-           
+                throw new ExceptionUtil("Posicao de destino inválida");         
 
         }
         private void mudarJogaodr()
@@ -101,20 +104,33 @@ namespace Domain
         }
         private void colocarPeca()
         {
+
+
             colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.branco));
-            colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.branco));
             colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
+            colocarNovaPeca('h', 7, new Torre(tabuleiro, Cor.branco));
 
 
-            colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.preto));
-            colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.preto));
-            colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.preto));
-            colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.preto));
-            colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.preto));
-            colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.preto));
+            colocarNovaPeca('a', 8, new Rei(tabuleiro, Cor.preto));
+            colocarNovaPeca('b', 8, new Torre(tabuleiro, Cor.preto));
+         
+
+
+
+            //colocarNovaPeca('c', 1, new Torre(tabuleiro, Cor.branco));
+            //colocarNovaPeca('c', 2, new Torre(tabuleiro, Cor.branco));
+            //colocarNovaPeca('d', 2, new Torre(tabuleiro, Cor.branco));
+            //colocarNovaPeca('e', 2, new Torre(tabuleiro, Cor.branco));
+            //colocarNovaPeca('e', 1, new Torre(tabuleiro, Cor.branco));
+            //colocarNovaPeca('d', 1, new Rei(tabuleiro, Cor.branco));
+
+
+            //colocarNovaPeca('c', 7, new Torre(tabuleiro, Cor.preto));
+            //colocarNovaPeca('c', 8, new Torre(tabuleiro, Cor.preto));
+            //colocarNovaPeca('d', 7, new Torre(tabuleiro, Cor.preto));
+            //colocarNovaPeca('e', 7, new Torre(tabuleiro, Cor.preto));
+            //colocarNovaPeca('e', 8, new Torre(tabuleiro, Cor.preto));
+            //colocarNovaPeca('d', 8, new Rei(tabuleiro, Cor.preto));
 
             //  tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.branco),  new ConverterPosicao('a', 1).toPosicao());    
             //tabuleiro.colocarPeca(new Cavalo(tabuleiro, Cor.branco), new ConverterPosicao('b', 1).toPosicao());
@@ -166,9 +182,7 @@ namespace Domain
         }
         private Peca retonaRei(Cor cor)
         {
-           
-              return listPecasJogo(cor).Where(x => x is Rei).FirstOrDefault();
-          
+           return listPecasJogo(cor).Where(x => x is Rei).FirstOrDefault();          
         }
         public bool estaEmXeque(Cor cor)
         {
@@ -181,6 +195,32 @@ namespace Domain
               
             }
             return false;
+        }
+        public bool testeXequeMate(Cor cor)
+        {
+            if (!estaEmXeque(cor))
+                return false;
+            foreach (var p in listPecasJogo(cor))
+            {
+                var matriz = p.movimentosPossiveis();
+                for (int i = 0; i < tabuleiro.linhas; i++)
+                {
+                    for (int j = 0; j < tabuleiro.colunas; j++)
+                    {
+                        if(matriz[i,j])
+                        {
+                            var origem = p.posicao;
+                            var destino = new Posicao(i, j);
+                            var movpeca = ExecultaMovimento(origem, destino);
+                            bool testeXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, movpeca);
+                            if (!testeXeque)
+                                return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
         public void desfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
         {
