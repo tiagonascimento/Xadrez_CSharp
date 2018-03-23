@@ -38,6 +38,11 @@ namespace Model
             }
             return false;
         }
+        public bool podeMoverPara(Posicao posicao)
+        {
+            return movimentosPossiveis()[posicao.linha, posicao.coluna];
+        }
+
 
        
     }

@@ -43,6 +43,13 @@ namespace Domain
                 throw new ExceptionUtil(" não a movimentos disponiveis para a peça escolhida");
 
         }
+        public void validarPosicaoDestino(Posicao origem, Posicao destino)
+        {
+            if (!tabuleiro.peca(origem).podeMoverPara(destino))
+                throw new ExceptionUtil("Posicao de destino inválida");
+           
+
+        }
         private void mudarJogaodr()
         {
             if(_jogadorAtual == Cor.preto)

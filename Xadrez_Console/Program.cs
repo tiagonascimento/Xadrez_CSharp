@@ -31,6 +31,7 @@ namespace Xadrez_Console
                     Tela.imprimirTabuleiro(p.tabuleiro, pe);
                     Console.WriteLine("destino");
                     var destino = Tela.lerPosicaoXadez().toPosicao();
+                        p.validarPosicaoDestino(origem, destino);
                     p.realizaJogada(origem, destino);
                     }
                     catch (Exception ex)
