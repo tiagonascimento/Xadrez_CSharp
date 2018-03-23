@@ -15,9 +15,9 @@ namespace Domain
         public bool terminada { get; private set; }
         private HashSet<Peca> pecas;
         private HashSet<Peca> pecasCapturadas;
+        public bool xeque { get; private set; }
 
 
-     
         public PartidaDeXadrez()
         {
             pecas = new HashSet<Peca>();
@@ -25,10 +25,9 @@ namespace Domain
             tabuleiro = new Tabuleiro(8, 8);
             _turno = 1;
             _jogadorAtual = Cor.branco;
-            colocarPeca();
-            terminada = false;
+            colocarPeca();            
         }
-        public void ExecultaMovimento(Posicao origem, Posicao destino)
+        public Peca ExecultaMovimento(Posicao origem, Posicao destino)
         {
             var peca = tabuleiro.retirarPeca(origem);
             peca.incrementarMovimento();
@@ -36,10 +35,23 @@ namespace Domain
             tabuleiro.colocarPeca(peca, destino);
             if (pecaCapturada != null)
                 pecasCapturadas.Add(pecaCapturada);
+
+            return pecaCapturada;
         }
         public void realizaJogada(Posicao origem,Posicao destino)
         {
-            ExecultaMovimento(origem, destino);
+           var pecaCapturada =  ExecultaMovimento(origem, destino);
+           if(estaEmXeque(_jogadorAtual))
+            {
+                desfazMovimento(origem, destino, pecaCapturada);
+                throw new ExceptionUtil("Você não pode se colocar em xeque!");
+            }
+            if (estaEmXeque(adversaria(_jogadorAtual)))
+                xeque = true;
+            else
+                xeque = false;
+
+              
             _turno++;
             mudarJogaodr();
 
@@ -76,9 +88,10 @@ namespace Domain
         }
         public HashSet<Peca> listPecasJogo(Cor cor)
         {
-            var p = (HashSet<Peca>)pecas.Where(x => x.cor == cor);
-            p.ExceptWith(listPecasCapturadas(cor));
-            return new HashSet<Peca>(p);
+            var p = pecas.Where(x => x.cor == cor);
+            var p2 = new HashSet<Peca>(p);
+            p2.ExceptWith(listPecasCapturadas(cor));
+            return p2;
         }
         public HashSet<Peca> listPecasCapturadas(Cor cor)
         {
@@ -143,6 +156,42 @@ namespace Domain
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 7));
             //tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.preto), new Posicao(7, 0));
+        }
+        private Cor adversaria(Cor cor)
+        {
+            if (cor == Cor.branco)
+                return Cor.preto;
+            else
+                return Cor.branco;
+        }
+        private Peca retonaRei(Cor cor)
+        {
+           
+              return listPecasJogo(cor).Where(x => x is Rei).FirstOrDefault();
+          
+        }
+        public bool estaEmXeque(Cor cor)
+        {
+            var rei = retonaRei(cor);
+            foreach (var i in listPecasJogo(adversaria(cor)))
+            {
+                var matriz = i.movimentosPossiveis();
+                if (matriz[rei.posicao.linha, rei.posicao.coluna])
+                    return true;
+              
+            }
+            return false;
+        }
+        public void desfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
+        {
+            var pe = tabuleiro.retirarPeca(destino);
+            pe.decrementarMovimento();
+            if (pecaCapturada != null)
+            {
+                tabuleiro.colocarPeca(pecaCapturada, destino);
+                pecasCapturadas.Remove(pecaCapturada);
+            }
+            tabuleiro.colocarPeca(pe, origem);
         }
     }
 }

@@ -18,6 +18,10 @@ namespace Model
         {
             qtdMovimento++;
         }
+        public void decrementarMovimento()
+        {
+            qtdMovimento--;
+        }
         protected bool podeMover(Posicao posicao)
         {
             var peca = tabuleiro.peca(posicao);

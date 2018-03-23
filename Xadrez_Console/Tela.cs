@@ -18,7 +18,8 @@ namespace Xadrez_Console
             Console.WriteLine();
             Console.WriteLine("Trurno: " + partida._turno);
             Console.WriteLine("Aguardando jogada: " + partida._jogadorAtual);
-
+            if(partida.xeque)
+                Console.WriteLine("XEQUE!!!!!!");
         }
         public static void imprimirPartida(PartidaDeXadrez partida, bool[,] matrizPossivel)
         {
