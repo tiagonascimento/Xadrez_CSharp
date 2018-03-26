@@ -26,8 +26,8 @@ namespace Xadrez_Console
                     var pe = p.tabuleiro.peca(origem).movimentosPossiveis();
                     Console.Clear();
 
-                        //  Tela.imprimirTabuleiro(p.tabuleiro, pe);
-                        Tela.imprimirPartida(p, pe);
+                          Tela.imprimirTabuleiro(p.tabuleiro, pe);
+                        //Tela.imprimirPartida(p, pe);
                         Console.WriteLine("destino");
                     var destino = Tela.lerPosicaoXadez().toPosicao();
                         p.validarPosicaoDestino(origem, destino);

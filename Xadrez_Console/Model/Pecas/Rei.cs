@@ -72,7 +72,7 @@ namespace Model
                     var p3 = new Posicao(posicao.linha, posicao.coluna - 3);
                     if (tabuleiro.peca(p2) == null && tabuleiro.peca(p2) == null&& tabuleiro.peca(p3) == null)
                     {
-                        matriz[posicao.linha, posicao.coluna + 2] = true;
+                        matriz[posicao.linha, posicao.coluna - 2] = true;
                     }
                 }
             }
