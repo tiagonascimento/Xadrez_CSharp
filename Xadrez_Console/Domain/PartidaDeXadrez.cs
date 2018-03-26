@@ -9,7 +9,6 @@ namespace Domain
     public class PartidaDeXadrez
     {
         public Tabuleiro tabuleiro { get; private set; }
-
         public int _turno { get; private set; }
         public Cor _jogadorAtual { get; private set; }
         public bool terminada { get; private set; }
@@ -17,7 +16,6 @@ namespace Domain
         private HashSet<Peca> pecasCapturadas;
         public bool xeque { get; private set; }
         public Peca vulnevaralEnPassant { get; private set; }
-
         public PartidaDeXadrez()
         {
             vulnevaralEnPassant = null;
