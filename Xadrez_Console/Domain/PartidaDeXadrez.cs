@@ -80,12 +80,31 @@ namespace Domain
         }
         public void realizaJogada(Posicao origem, Posicao destino)
         {
+            var p = tabuleiro.peca(origem);
             var pecaCapturada = ExecultaMovimento(origem, destino);
+
+            //TODO jogada especial promocao
+            if (p is Peao)
+            {
+                if ((p.cor == Cor.branco && destino.linha == 0) || (p.cor == Cor.preto && destino.linha == 7))
+                {
+                    p = tabuleiro.retirarPeca(destino);
+                    pecas.Remove(p);
+
+                    Peca rainha = new Rainha(tabuleiro, p.cor);
+                    tabuleiro.colocarPeca(rainha, destino);
+                    pecas.Add(rainha);
+
+                }
+            }
+
             if (estaEmXeque(_jogadorAtual))
             {
                 desfazMovimento(origem, destino, pecaCapturada);
                 throw new ExceptionUtil("Você não pode se colocar em xeque!");
             }
+           
+
             if (estaEmXeque(adversaria(_jogadorAtual)))
                 xeque = true;
             else
@@ -98,7 +117,7 @@ namespace Domain
                 _turno++;
                 mudarJogaodr();
             }
-            var p = tabuleiro.peca(destino);
+        
 
             //TODO jogada especial En Passant
             if (p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2))
