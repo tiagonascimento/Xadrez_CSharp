@@ -1,12 +1,15 @@
 ﻿
+using Domain;
 using System;
 
 namespace Model
 {
     public class Peao : Peca
     {
-        public Peao(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor)
+        private PartidaDeXadrez partida;
+        public Peao(Tabuleiro tabuleiro, Cor cor, PartidaDeXadrez partida) : base(tabuleiro, cor)
         {
+            this.partida = partida;
         }
         private bool existeInimigo(Posicao pos)
         {
@@ -41,6 +44,22 @@ namespace Model
                 p.definirValores(posicao.linha - 1, posicao.coluna + 1);
                 if (tabuleiro.posicaoValida(p) && existeInimigo(p))                
                     matriz[p.linha, p.coluna] = true;
+
+            //TODO Jogada especial En passant 
+            if(posicao.linha == 3)
+                {
+                    var posicaoEsquerda = new Posicao(posicao.linha, posicao.coluna - 1);
+                    if(tabuleiro.posicaoValida(p)&& existeInimigo(posicaoEsquerda) && tabuleiro.peca(posicaoEsquerda) ==partida.vulnevaralEnPassant)
+                    {
+                        matriz[posicaoEsquerda.linha-1, posicaoEsquerda.coluna] = true;
+                    }
+
+                    var posicaoDireita = new Posicao(posicao.linha, posicao.coluna + 1);
+                    if (tabuleiro.posicaoValida(p) && existeInimigo(posicaoDireita) && tabuleiro.peca(posicaoDireita) == partida.vulnevaralEnPassant)
+                    {
+                        matriz[posicaoDireita.linha-1, posicaoDireita.coluna] = true;
+                    }
+                }
             }
             else
             {
@@ -61,7 +80,25 @@ namespace Model
                 p.definirValores(posicao.linha + 1, posicao.coluna + 1);
                 if (tabuleiro.posicaoValida(p) && existeInimigo(p))
                     matriz[p.linha, p.coluna] = true;
+
+
+                //TODO Jogada especial En passant 
+                if (posicao.linha == 4)
+                {
+                    var posicaoEsquerda = new Posicao(posicao.linha, posicao.coluna - 1);
+                    if (tabuleiro.posicaoValida(p) && existeInimigo(posicaoEsquerda) && tabuleiro.peca(posicaoEsquerda) == partida.vulnevaralEnPassant)
+                    {
+                        matriz[posicaoEsquerda.linha+1, posicaoEsquerda.coluna] = true;
+                    }
+
+                    var posicaoDireita = new Posicao(posicao.linha, posicao.coluna + 1);
+                    if (tabuleiro.posicaoValida(p) && existeInimigo(posicaoDireita) && tabuleiro.peca(posicaoDireita) == partida.vulnevaralEnPassant)
+                    {
+                        matriz[posicaoDireita.linha+1, posicaoDireita.coluna] = true;
+                    }
+                }            
             }
+
             return matriz;
         }
 

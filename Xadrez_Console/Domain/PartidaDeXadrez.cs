@@ -16,10 +16,11 @@ namespace Domain
         private HashSet<Peca> pecas;
         private HashSet<Peca> pecasCapturadas;
         public bool xeque { get; private set; }
-
+        public Peca vulnevaralEnPassant { get; private set; }
 
         public PartidaDeXadrez()
         {
+            vulnevaralEnPassant = null;
             pecas = new HashSet<Peca>();
             pecasCapturadas = new HashSet<Peca>();
             tabuleiro = new Tabuleiro(8, 8);
@@ -57,6 +58,23 @@ namespace Domain
                 tabuleiro.colocarPeca(torre, destinoTorra);
 
             }
+            // jogada especial En passant
+            if(peca is Peao)
+            {
+                if(origem.coluna!=destino.coluna && pecaCapturada==null)
+                {
+                    Posicao posicaoPeao;
+                    if(peca.cor == Cor.branco)                    
+                        posicaoPeao = new Posicao(destino.linha + 1, destino.coluna);
+                    else
+                        posicaoPeao = new Posicao(destino.linha - 1, destino.coluna);
+
+                    pecaCapturada = tabuleiro.retirarPeca(posicaoPeao);
+                    pecasCapturadas.Add(pecaCapturada);
+
+
+                }
+            }
 
             return pecaCapturada;
         }
@@ -80,6 +98,13 @@ namespace Domain
                 _turno++;
                 mudarJogaodr();
             }
+            var p = tabuleiro.peca(destino);
+
+            //TODO jogada especial En Passant
+            if (p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2))
+                vulnevaralEnPassant = p;
+            else
+                vulnevaralEnPassant = null;
 
         }
         public void validarPosicaoOrigem(Posicao pos)
@@ -127,14 +152,14 @@ namespace Domain
         private void colocarPeca()
         {
 
-            colocarNovaPeca('a', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('b', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('c', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('d', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('e', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('f', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('g', 2, new Peao(tabuleiro, Cor.branco));
-            colocarNovaPeca('h', 2, new Peao(tabuleiro, Cor.branco));
+            colocarNovaPeca('a', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('b', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('c', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('d', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('e', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('f', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('g', 2, new Peao(tabuleiro, Cor.branco, this));
+            colocarNovaPeca('h', 2, new Peao(tabuleiro, Cor.branco, this));
 
             colocarNovaPeca('a', 1, new Torre(tabuleiro, Cor.branco));
             colocarNovaPeca('b', 1, new Cavalo(tabuleiro, Cor.branco));
@@ -146,14 +171,14 @@ namespace Domain
             colocarNovaPeca('h', 1, new Torre(tabuleiro, Cor.branco));
 
 
-            colocarNovaPeca('a', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('b', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('c', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('d', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('e', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('f', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('g', 7, new Peao(tabuleiro, Cor.preto));
-            colocarNovaPeca('h', 7, new Peao(tabuleiro, Cor.preto));
+            colocarNovaPeca('a', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('b', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('c', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('d', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('e', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('f', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('g', 7, new Peao(tabuleiro, Cor.preto, this));
+            colocarNovaPeca('h', 7, new Peao(tabuleiro, Cor.preto, this));
 
             colocarNovaPeca('a', 8, new Torre(tabuleiro, Cor.preto));
             colocarNovaPeca('b', 8, new Cavalo(tabuleiro, Cor.preto));
@@ -245,6 +270,21 @@ namespace Domain
                 torre.decrementarMovimento();
                 tabuleiro.colocarPeca(torre, origemTorre);
 
+            }
+            // jogada especial en passant
+            if (pe is Peao)
+            {
+                if(origem.coluna != destino.coluna && pecaCapturada == vulnevaralEnPassant)
+                {
+                    var peao = tabuleiro.retirarPeca(destino);
+                    Posicao posicaoPeao;
+                    if(pe.cor == Cor.branco)                    
+                        posicaoPeao = new Posicao(3, destino.coluna);                    
+                    else
+                        posicaoPeao = new Posicao(4, destino.coluna);
+                    tabuleiro.colocarPeca(pe, posicaoPeao);
+                }
+                
             }
         }
     }
